@@ -6,8 +6,8 @@ type Props = { nombre: string; fechaISO: string; hora: string }
 export default function Hero({ nombre, fechaISO, hora }: Props){
   return (
     <header className="hero">
-      <img src="/images/balloon1.png" className="balloon float1" alt="globo" />
-      <img src="/images/balloon2.png" className="balloon float2" alt="globo" />
+      <img src={`${import.meta.env.BASE_URL}images/balloon1.png`} className="balloon float1" alt="globo" />
+      <img src={`${import.meta.env.BASE_URL}images/balloon2.png`} className="balloon float2" alt="globo" />
 
       <motion.div className="hero-content"
         initial={{ scale: 0.9, opacity: 0 }}

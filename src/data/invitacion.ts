@@ -15,5 +15,8 @@ export const invitacion: Invitacion = {
   direccion: 'Salón Las Palmas - Av. Principal 123',
   telefono: '+5491123456789',
   alias: 'VAL18.GIFT.ALIAS',
-  fotos: ['/images/foto1.webp','/images/foto2.jpeg']
+  fotos: [
+    `${import.meta.env.BASE_URL}images/foto1.webp`,
+    `${import.meta.env.BASE_URL}images/foto2.jpeg`
+  ]
 }

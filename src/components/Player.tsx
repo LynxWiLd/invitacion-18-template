@@ -3,7 +3,7 @@ import { Howl } from 'howler'
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
 
 // Música ubicada en public/audio/
-const MUSIC_SRC = '/audio/music.mp3'
+const MUSIC_SRC = `${import.meta.env.BASE_URL}audio/music.mp3`
 
 let sound: any = null
 let fallbackAudio: HTMLAudioElement | null = null

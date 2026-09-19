@@ -12,7 +12,7 @@ export default function Polaroid({ fotos }: { fotos: string[] }){
         ))}
       </div>
 
-      <img src="/images/disco.png" alt="bola disco" className="disco-deco animate-spin-slow" />
+      <img src={`${import.meta.env.BASE_URL}images/disco.png`} alt="bola disco" className="disco-deco animate-spin-slow" />
     </div>
   )
 }
