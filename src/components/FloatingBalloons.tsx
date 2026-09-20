@@ -11,20 +11,27 @@ const BALLOONS = [
 export default function FloatingBalloons(){
   const [visible, setVisible] = useState(false)
   const started = useRef(false)
-  const prefersReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   useEffect(()=>{
-    const onScroll = ()=>{
-      if(!started.current && window.scrollY > 50){
+    const show = ()=>{
+      if(!started.current){
         started.current = true
         setVisible(true)
       }
     }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return ()=> window.removeEventListener('scroll', onScroll)
+    window.addEventListener('scroll', show, { passive: true })
+    window.addEventListener('touchstart', show, { passive: true })
+    window.addEventListener('click', show)
+    const timer = setTimeout(show, 2000)
+    return ()=>{
+      window.removeEventListener('scroll', show)
+      window.removeEventListener('touchstart', show)
+      window.removeEventListener('click', show)
+      clearTimeout(timer)
+    }
   },[])
 
-  if(prefersReduced || !visible) return null
+  if(!visible) return null
 
   return (
     <div className="pointer-events-none fixed inset-0 z-40 overflow-hidden" aria-hidden>

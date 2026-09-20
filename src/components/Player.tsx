@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Howl } from 'howler'
 
 const MUSIC_SRC = `${import.meta.env.BASE_URL}audio/music.mp3`
@@ -6,21 +6,24 @@ const MUSIC_SRC = `${import.meta.env.BASE_URL}audio/music.mp3`
 export default function Player(){
   const soundRef = useRef<Howl | null>(null)
   const fallbackRef = useRef<HTMLAudioElement | null>(null)
+  const played = useRef(false)
 
   useEffect(()=>{
     const fallback = new Audio(MUSIC_SRC)
     fallback.loop = true
     fallback.volume = 0.6
+    fallback.preload = 'auto'
     fallbackRef.current = fallback
 
     const howl = new Howl({
       src: [MUSIC_SRC],
       loop: true,
       volume: 0.6,
+      preload: true,
     })
 
     howl.on('playerror', ()=>{
-      fallback.play().catch(()=>{})
+      try { fallback.play() } catch{}
     })
 
     soundRef.current = howl
@@ -36,29 +39,26 @@ export default function Player(){
 
   useEffect(()=>{
     const tryPlay = ()=>{
+      if(played.current) return
+      played.current = true
       const howl = soundRef.current
       const fallback = fallbackRef.current
-      if(!howl && !fallback) return
-      if(howl){
-        howl.play()
-      } else if(fallback) {
-        fallback.play().catch(()=>{})
-      }
+      if(howl) howl.play()
+      else if(fallback) fallback.play().catch(()=>{})
+      removeListeners()
     }
 
-    const handleInteraction = ()=>{
-      tryPlay()
-      window.removeEventListener('click', handleInteraction)
-      window.removeEventListener('touchstart', handleInteraction)
+    const removeListeners = ()=>{
+      window.removeEventListener('click', tryPlay)
+      window.removeEventListener('touchstart', tryPlay)
+      window.removeEventListener('scroll', tryPlay)
     }
 
-    window.addEventListener('click', handleInteraction)
-    window.addEventListener('touchstart', handleInteraction)
+    window.addEventListener('click', tryPlay)
+    window.addEventListener('touchstart', tryPlay)
+    window.addEventListener('scroll', tryPlay, { passive: true })
 
-    return ()=>{
-      window.removeEventListener('click', handleInteraction)
-      window.removeEventListener('touchstart', handleInteraction)
-    }
+    return removeListeners
   },[])
 
   return null
