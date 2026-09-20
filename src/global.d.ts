@@ -7,7 +7,6 @@ declare module '*.jpeg'
 declare module '*.gif'
 declare module '*.svg'
 
-declare module 'howler'
 declare module 'canvas-confetti'
 declare module 'swiper/react'
 declare module 'swiper'
