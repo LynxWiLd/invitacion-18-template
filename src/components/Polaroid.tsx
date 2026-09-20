@@ -11,8 +11,6 @@ export default function Polaroid({ fotos }: { fotos: string[] }){
           </motion.div>
         ))}
       </div>
-
-      <img src={`${import.meta.env.BASE_URL}images/disco.png`} alt="Bola disco decorativa" className="disco-deco animate-spin-slow" />
     </div>
   )
 }
