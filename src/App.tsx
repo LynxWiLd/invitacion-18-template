@@ -23,6 +23,10 @@ export default function App(){
         </section>
 
         <section className="py-8">
+          <Polaroid fotos={invitacion.fotos} />
+        </section>
+
+        <section className="py-8">
           <Countdown fechaISO={invitacion.fechaISO} />
         </section>
 
@@ -32,10 +36,6 @@ export default function App(){
 
         <section className="py-8">
           <Gifts alias={invitacion.alias} />
-        </section>
-
-        <section className="py-8">
-          <Polaroid fotos={invitacion.fotos} />
         </section>
 
         <section className="py-8">
