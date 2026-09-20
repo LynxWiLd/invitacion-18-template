@@ -3,10 +3,17 @@ import { MapPin } from 'lucide-react'
 
 type Props = { direccion: string; telefono: string }
 
+function safeOpen(url: string){
+  const w = window.open(url, '_blank')
+  if(!w || w.closed || typeof w.closed === 'undefined'){
+    location.href = url
+  }
+}
+
 export default function Location({ direccion, telefono }: Props){
   const openMap = ()=>{
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion)}`
-    window.open(url,'_blank')
+    safeOpen(url)
   }
 
   return (

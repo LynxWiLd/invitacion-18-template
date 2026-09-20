@@ -1,13 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 type Props = { alias: string }
 
 export default function Gifts({ alias }: Props){
   const [copied, setCopied] = useState(false)
+
+  useEffect(()=>{
+    if(!copied) return
+    const id = setTimeout(()=>setCopied(false),2000)
+    return ()=> clearTimeout(id)
+  },[copied])
+
   const copy = async ()=>{
-    await navigator.clipboard.writeText(alias)
-    setCopied(true)
-    setTimeout(()=>setCopied(false),2000)
+    try{
+      await navigator.clipboard.writeText(alias)
+      setCopied(true)
+    }catch{
+      const textArea = document.createElement('textarea')
+      textArea.value = alias
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textArea)
+      setCopied(true)
+    }
   }
 
   return (

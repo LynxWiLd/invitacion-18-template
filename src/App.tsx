@@ -9,12 +9,14 @@ import DressCode from './components/DressCode'
 import RSVP from './components/RSVP'
 import Gallery from './components/Gallery'
 import Footer from './components/Footer'
+import FloatingBalloons from './components/FloatingBalloons'
 import { invitacion } from './data/invitacion'
 
 export default function App(){
   return (
     <div className="min-h-screen stars">
       <Player />
+      <FloatingBalloons />
       <main className="app-main max-w-[480px] mx-auto">
         <section className="min-h-screen">
           <Hero nombre={invitacion.nombre} fechaISO={invitacion.fechaISO} hora={invitacion.hora} />

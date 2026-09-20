@@ -3,12 +3,19 @@ import confetti from 'canvas-confetti'
 
 type Props = { telefono: string }
 
+function safeOpen(url: string){
+  const w = window.open(url, '_blank')
+  if(!w || w.closed || typeof w.closed === 'undefined'){
+    location.href = url
+  }
+}
+
 export default function RSVP({ telefono }: Props){
   const confirmar = ()=>{
     confetti({ particleCount: 100, spread: 70, colors: ['#fff','#e8e8e8','#b8b8b8'] })
     const text = encodeURIComponent('¡Confirmo mi asistencia!')
     const url = `https://wa.me/${telefono.replace(/[^0-9]/g,'')}?text=${text}`
-    window.open(url,'_blank')
+    safeOpen(url)
   }
 
   return (
