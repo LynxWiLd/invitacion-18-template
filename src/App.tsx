@@ -19,11 +19,7 @@ export default function App(){
       <FloatingBalloons />
       <main className="app-main max-w-[480px] mx-auto">
         <section className="min-h-screen">
-          <Hero nombre={invitacion.nombre} fechaISO={invitacion.fechaISO} hora={invitacion.hora} />
-        </section>
-
-        <section className="py-8">
-          <Polaroid fotos={invitacion.fotos} />
+          <Hero nombre={invitacion.nombre} fechaISO={invitacion.fechaISO} hora={invitacion.hora} fotos={invitacion.fotos} />
         </section>
 
         <section className="py-8">
